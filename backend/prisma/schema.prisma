@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  votes     Vote[]
+  questions Question[]
+
+  @@map("users")
+}
+
+model Question {
+  id        String   @id @default(uuid())
+  text      String
+  optionA   String
+  optionB   String
+  category  String   @default("geral")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String?
+
+  user  User?  @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  votes Vote[]
+
+  @@map("questions")
+}
+
+model Vote {
+  id         String   @id @default(uuid())
+  questionId String
+  choice     String   // "A" or "B"
+  userId     String?
+  createdAt  DateTime @default(now())
+
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user     User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@unique([questionId, userId])
+  @@map("votes")
+}
