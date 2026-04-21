@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-gray-950 text-gray-100;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold
+      text-white bg-gradient-to-r from-indigo-500 to-purple-600
+      hover:from-indigo-600 hover:to-purple-700
+      active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl
+      focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold
+      text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800
+      border border-gray-200 dark:border-gray-700
+      hover:bg-gray-50 dark:hover:bg-gray-700/50
+      active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md
+      focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700
+      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
+      placeholder-gray-400 dark:placeholder-gray-500
+      focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
+      transition-all duration-200;
+  }
+}
+
+/* Scrollbar customizado */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-600;
+}
