@@ -5,6 +5,6 @@
   "installCommand": "npm install",
   "env": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://sgkjlldpdygoremvmhwn.supabase.co",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_xn0RZy6Ms6mk-24TCl2_ng_c4kUIdZ_"
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNna2psbGRwZHlnb3JlbXZtaHduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MTU4OTQsImV4cCI6MjA5MjI5MTg5NH0.XO9qV5KNZaJN6gAjadYZ6YNfPJf8WNUETnVkIDSKiKE"
   }
 }
