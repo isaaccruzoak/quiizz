@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 export default function TestePage() {
   const [resultado, setResultado] = useState("Testando...");
@@ -14,17 +15,22 @@ export default function TestePage() {
         return;
       }
 
+      setResultado(`🔄 Variáveis OK!\nURL: ${url}\nKEY: ${key.slice(0, 25)}...\n\nConectando ao banco...`);
+
       try {
-        const res = await fetch(`${url}/rest/v1/questions?select=count&is_active=eq.true`, {
-          headers: {
-            apikey: key,
-            Authorization: `Bearer ${key}`,
-          },
-        });
-        const data = await res.json();
-        setResultado(`✅ Conexão OK!\nStatus: ${res.status}\nResposta: ${JSON.stringify(data)}\n\nURL: ${url}\nKEY: ${key.slice(0, 20)}...`);
+        const supabase = createClient(url, key);
+        const { data, error, count } = await supabase
+          .from("questions")
+          .select("id, text", { count: "exact" })
+          .limit(1);
+
+        if (error) {
+          setResultado(`❌ Erro do Supabase: ${error.message}\nCódigo: ${error.code}\n\nURL: ${url}`);
+        } else {
+          setResultado(`✅ TUDO OK!\nTotal de perguntas: ${count}\nPrimeira pergunta: "${data?.[0]?.text ?? "nenhuma"}"\n\nURL: ${url}`);
+        }
       } catch (e: unknown) {
-        setResultado(`❌ Erro de conexão: ${e instanceof Error ? e.message : String(e)}`);
+        setResultado(`❌ Erro inesperado: ${e instanceof Error ? e.message : String(e)}`);
       }
     }
     testar();
